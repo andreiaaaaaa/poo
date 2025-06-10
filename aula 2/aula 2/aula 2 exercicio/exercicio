@@ -1,0 +1,317 @@
+#II. Escreva um programa em Python para:
+#1. ler três números inteiros em uma mesma linha
+#2. mostrar a soma dos números pares
+
+numeros = input("Digite três números inteiros separados por espaços: ")
+numeros = list(map(int, numeros.split()))
+soma_pares = sum(numero for numero in numeros if numero % 2 == 0)
+print(f"Soma dos pares: {soma_pares}")
+
+
+
+
+#III. Escreva um programa em Python para:
+#1. ler uma frase
+#2. mostrar a frase lida, retirando os 2o, 4o, 6o, ... caracteres, ou seja, escreve um, outro não, a partir do
+#primeiro caractere
+
+frase = input("Escreva uma frase: ")
+resultado = frase[::2]
+print(resultado)
+
+#Escrever um programa em Python para o cálculo do valor a pagar de contas de água, utilizando a classe
+#Água. Nessa classe, devem ser definidos os atributos mês, ano e consumo para armazenar os dados
+#relativos a uma conta: mês/ano da conta e total consumido em m3
+#. (1m3
+#= 1000 litros). A classe deve ter
+#também um método para calcular o valor da conta de água.
+
+
+def __init__(self, mes, ano, consumo):
+        self.mes = mes
+        self.ano = ano
+        self.consumo = consumo
+
+def calcular_valor(self, preco_por_m3):
+        return self.consumo * preco_por_m3
+
+if __name__ == "__main__":
+    mes = input("Digite o mês da conta: ")
+    ano = input("Digite o ano da conta: ")
+    consumo = float(input("Digite o consumo em m³: "))
+    preco_por_m3 = float(input("Digite o preço por m³: "))
+
+    conta = Agua(mes, ano, consumo)
+    valor = conta.calcular_valor(preco_por_m3)
+
+    print(f"Conta de água referente a {mes}/{ano}")
+    print(f"Consumo: {consumo} m³")
+    print(f"Valor a pagar: R$ {valor:.2f}")
+
+
+
+
+#Escrever uma classe para modelar uma entrada de cinema com todos os atributos encapsulados. A classe deve ter
+#atributos para armazenar o dia e o horário de uma sessão de cinema e métodos para calcular o valor da entrada
+#inteira e da meia-entrada, além dos métodos de acesso para definir e recuperar os atributos.
+#O valor das entradas deve ser calculado com base nas seguintes regras:
+#• Segunda, terça e quinta, o valor base do ingresso é R$ 16,00.
+#• Nas quartas todos pagam meia-entrada no valor de R$ 8,00, em qualquer horário.
+#• Sexta, sábado e domingo, o valor base do ingresso é R$ 20,00.
+#• Das 17h à meia-noite, há acréscimo de 50% no valor base do ingresso.
+#Escrever um programa para testar a classe e elaborar seu digrama UML.
+
+
+class EntradaCinema:
+    def __init__(self, dia: str, horario: int):
+        self.__dia = dia.capitalize()
+        self.__horario = horario
+
+
+    def set_dia(self, dia: str):
+        self.__dia = dia.capitalize()
+
+    def get_dia(self) -> str:
+        return self.__dia
+
+    def set_horario(self, horario: int):
+        self.__horario = horario
+
+    def get_horario(self) -> int:
+        return self.__horario
+
+
+    def __valor_base(self) -> float:
+        if self.__dia == "Quarta":
+            return 8.0
+        elif self.__dia in ["Segunda", "Terça", "Quinta"]:
+            return 16.0
+        elif self.__dia in ["Sexta", "Sábado", "Domingo"]:
+            return 20.0
+        else:
+            raise ValueError("Dia inválido")
+
+
+    def __acrescimo(self, valor: float) -> float:
+        if 17 <= self.__horario <= 23:
+            return valor * 1.5
+        return valor
+
+
+    def valor_inteira(self) -> float:
+        if self.__dia == "Quarta":
+            return 8.0
+        valor = self.__valor_base()
+        valor = self.__acrescimo(valor)
+        return valor
+
+
+    def valor_meia(self) -> float:
+        if self.__dia == "Quarta":
+            return 8.0
+        valor = self.__valor_base() / 2
+        valor = self.__acrescimo(valor)
+        return valor
+
+
+if __name__ == "__main__":
+    entrada = EntradaCinema("sexta", 18)
+    print("Dia:", entrada.get_dia())
+    print("Horário:", entrada.get_horario())
+    print("Valor inteira: R$", entrada.valor_inteira())
+    print("Valor meia: R$", entrada.valor_meia())
+
+    entrada.set_dia("quarta")
+    entrada.set_horario(15)
+    print("\nDia:", entrada.get_dia())
+    print("Horário:", entrada.get_horario())
+    print("Valor inteira: R$", entrada.valor_inteira())
+    print("Valor meia: R$", entrada.valor_meia())
+
+"""
+Diagrama UML (texto):
+
+-------------------------------
+|        EntradaCinema        |
+-------------------------------
+| - __dia: str               |
+| - __horario: int           |
+-------------------------------
+| + set_dia(dia: str)        |
+| + get_dia() -> str         |
+| + set_horario(horario: int)|
+| + get_horario() -> int     |
+| + valor_inteira() -> float |
+| + valor_meia() -> float    |
+-------------------------------
+"""
+
+
+#Escrever uma classe para modelar uma conta bancária com todos os atributos encapsulados. A classe deve ter
+#atributos para armazenar o nome do titular da conta, o número da conta e seu saldo e métodos para realizar as
+#operações de depósito e saque, além dos métodos de acesso para definir e recuperar os atributos.
+#Escrever um programa para testar a classe e elaborar seu digrama UML.
+
+
+class ContaBancaria:
+    def __init__(self, titular, numero, saldo=0.0):
+        self.__titular = titular
+        self.__numero = numero
+        self.__saldo = saldo
+
+
+    def get_titular(self):
+        return self.__titular
+
+    def set_titular(self, titular):
+        self.__titular = titular
+
+    def get_numero(self):
+        return self.__numero
+
+    def set_numero(self, numero):
+        self.__numero = numero
+
+    def get_saldo(self):
+        return self.__saldo
+
+    def set_saldo(self, saldo):
+        self.__saldo = saldo
+
+
+    def depositar(self, valor):
+        if valor > 0:
+            self.__saldo += valor
+            return True
+        return False
+
+    def sacar(self, valor):
+        if 0 < valor <= self.__saldo:
+            self.__saldo -= valor
+            return True
+        return False
+
+
+if __name__ == "__main__":
+    conta = ContaBancaria("João Silva", "12345-6", 1000.0)
+    print("Titular:", conta.get_titular())
+    print("Número:", conta.get_numero())
+    print("Saldo inicial:", conta.get_saldo())
+
+    conta.depositar(500)
+    print("Saldo após depósito:", conta.get_saldo())
+
+    if conta.sacar(300):
+        print("Saque realizado com sucesso.")
+    else:
+        print("Saque não realizado.")
+    print("Saldo final:", conta.get_saldo())
+
+"""
+Diagrama UML:
+
++-------------------+
+|  ContaBancaria    |
++-------------------+
+| - __titular: str  |
+| - __numero: str   |
+| - __saldo: float  |
++-------------------+
+| + get_titular()   |
+| + set_titular()   |
+| + get_numero()    |
+| + set_numero()    |
+| + get_saldo()     |
+| + set_saldo()     |
+| + depositar()     |
+| + sacar()         |
++-------------------+
+"""
+
+
+#Escrever a classe Viagem de acordo com o diagrama UML apresentado abaixo. A classe deve ter atributos para
+#armazenar a distância em km e o tempo gasto em horas e minutos da viagem realizada. A classe deve possuir
+#método para calcular a velocidade média atingida na viagem em km/h de acordo com a distância e o tempo gasto,
+#além dos métodos de acesso para definir e recuperar os atributos.
+#Escrever um programa para testar a classe.
+
+
+class Viagem:
+    def __init__(self, distancia_km=0.0, horas=0, minutos=0):
+        self._distancia_km = distancia_km
+        self._horas = horas
+        self._minutos = minutos
+
+
+    def set_distancia_km(self, distancia_km):
+        self._distancia_km = distancia_km
+
+    def get_distancia_km(self):
+        return self._distancia_km
+
+    def set_horas(self, horas):
+        self._horas = horas
+
+    def get_horas(self):
+        return self._horas
+
+    def set_minutos(self, minutos):
+        self._minutos = minutos
+
+    def get_minutos(self):
+        return self._minutos
+
+
+    def calcular_velocidade_media(self):
+        tempo_total_horas = self._horas + self._minutos / 60
+        if tempo_total_horas == 0:
+            return 0
+        return self._distancia_km / tempo_total_horas
+
+
+if __name__ == "__main__":
+    viagem = Viagem()
+    viagem.set_distancia_km(150)
+    viagem.set_horas(2)
+    viagem.set_minutos(30)
+
+    print(f"Distância: {viagem.get_distancia_km()} km")
+    print(f"Tempo: {viagem.get_horas()} horas e {viagem.get_minutos()} minutos")
+    print(f"Velocidade média: {viagem.calcular_velocidade_media():.2f} km/h")
+
+
+#Escrever a classe Círculo de acordo com o diagrama UML apresentado abaixo. A classe deve ter um atributo raio
+#para armazenar a dimensão da figura e métodos para calcular sua área e sua circunferência, além dos métodos de
+#acesso para definir e recuperar o atributo raio.
+#Escrever um programa para testar a classe.
+
+
+import math
+
+class Circulo:
+    def __init__(self, raio):
+        self._raio = raio
+
+    def get_raio(self):
+        return self._raio
+
+    def set_raio(self, raio):
+        self._raio = raio
+
+    def calcular_area(self):
+        return math.pi * (self._raio ** 2)
+
+    def calcular_circunferencia(self):
+        return 2 * math.pi * self._raio
+
+# Programa de teste
+if __name__ == "__main__":
+    c = Circulo(5)
+    print(f"Raio: {c.get_raio()}")
+    print(f"Área: {c.calcular_area():.2f}")
+    print(f"Circunferência: {c.calcular_circunferencia():.2f}")
+
+    c.set_raio(10)
+    print(f"\nNovo raio: {c.get_raio()}")
+    print(f"Nova área: {c.calcular_area():.2f}")
+    print(f"Nova circunferência: {c.calcular_circunferencia():.2f}")

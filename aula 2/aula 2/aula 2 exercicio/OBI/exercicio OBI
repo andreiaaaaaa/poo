@@ -1,0 +1,54 @@
+#EXERCÍCIO 1 OBI
+
+idades = [int(input()) for _ in range(3)]
+
+idades.sort()
+
+print(idades[1])
+
+
+#EXERCÍCIO 2 OBI
+
+n = int(input())
+stack = []
+
+for _ in range(n):
+    x = int(input())
+    if x == 0:
+        if stack:
+            stack.pop()
+    else:
+        stack.append(x)
+
+print(sum(stack))
+
+#EXERCÍCIO 3 OBI
+
+alfabeto = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'x', 'z']
+vogais = ['a', 'e', 'i', 'o', 'u']
+consoantes = [letra for letra in alfabeto if letra not in vogais]
+
+def vogal_mais_proxima(letra):
+    idx = alfabeto.index(letra)
+    distancias = [(abs(idx - alfabeto.index(v)), v) for v in vogais]
+    distancias.sort()
+    return distancias[0][1]
+
+def proxima_consoante(letra):
+    idx = consoantes.index(letra)
+    if idx == len(consoantes) - 1:
+        return letra
+    return consoantes[idx + 1]
+
+palavra = input().strip()
+resultado = []
+
+for letra in palavra:
+    if letra in vogais:
+        resultado.append(letra)
+    else:
+        resultado.append(letra)
+        resultado.append(vogal_mais_proxima(letra))
+        resultado.append(proxima_consoante(letra))
+
+print(''.join(resultado))
