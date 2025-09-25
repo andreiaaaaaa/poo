@@ -1,7 +1,7 @@
 from templates.ManterClienteUI import ManterClienteUI
 from templates.ManterServicoUI import ManterServicoUI
 
-import streamlit as st
+import streamlit as st # type: ignore
 
 class IndexUI:
     def main():
