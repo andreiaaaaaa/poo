@@ -1,6 +1,7 @@
-import streamlit as st
+from templates.ManterClienteUI import ManterClienteUI
 
-st.header("POO em Python com Streamlit")
+class IndexUI:
+    def main():
+        ManterClienteUI.main()
 
-if st.button("Clique Aqui"):
-    st.write("Bem-vindo(a) ao Streamlit")
+IndexUI.main()
