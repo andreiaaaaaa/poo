@@ -3,7 +3,7 @@ from models.clienteDAO import ClienteDAO
 from models.servico import Servico
 from models.servicoDAO import ServicoDAO
 from models.horario import Horario
-from models.horarioDAO import HorarioDAO
+from models.HorarioDAO import HorarioDAO
 
 class View:
 
