@@ -1,4 +1,3 @@
-import streamlit as st # type: ignore
 import pandas as pd
 import time 
 from views import View

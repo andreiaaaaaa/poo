@@ -48,7 +48,7 @@ class ManterProfissionalUI:
                 View.profissional_excluir(p.get_id())
                 st.success("Profissional excluído")
 
-from Profissional import profissional # type: ignore
+from Profissional import Profissional
 from ProfissionalDAO import profissionalDAO # type: ignore
 
 class ManterProfissionalUI:
