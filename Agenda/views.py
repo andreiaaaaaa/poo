@@ -64,7 +64,8 @@ class View:
         c = Horario(id, None)
         HorarioDAO.excluir(c)
 
-from ManterProfissionalUI import ManterProfissionalUI # type: ignore
+from templates.ManterProfissionalUI import ManterProfissionalUI
+from templates.ManterClienteUI import ManterClienteUI
 
 class View:
     def __init__(self):
