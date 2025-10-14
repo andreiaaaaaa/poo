@@ -19,4 +19,9 @@ class IndexUI:
 
     def main():
         IndexUI.sidebar()
-        
+
+from view import View
+
+if __name__ == "__main__":
+    v = View()
+    v.menu_principal()
