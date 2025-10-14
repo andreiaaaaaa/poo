@@ -1,3 +1,4 @@
+import streamlit as st # type: ignore
 from templates.ManterClienteUI import ManterClienteUI
 from templates.ManterServicoUI import ManterServicoUI
 from templates.ManterHorarioUI import ManterHorarioUI
@@ -18,10 +19,3 @@ class IndexUI:
 
     def main():
         IndexUI.sidebar()
-
-
-from views import View
-
-if __name__ == "__main__":
-    v = View()
-    v.menu_principal()
