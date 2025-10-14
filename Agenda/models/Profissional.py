@@ -61,5 +61,4 @@ class Profissional:
 
     def __str__(self):
         return f"{self.__id_profissional} - {self.__nome} ({self.__especialidade})"
-    from models.Profissional import Profissional
 

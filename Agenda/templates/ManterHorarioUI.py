@@ -1,8 +1,9 @@
-import streamlit as st # type: ignore
+from Profissional import Profissional
 import pandas as pd
 from datetime import datetime
 import time
 from views import View
+
 
 class ManterHorarioUI:
     def main():
