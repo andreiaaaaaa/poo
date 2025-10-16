@@ -1,4 +1,4 @@
-import streamlit as st # type: ignore
+import streamlit as st
 from templates.ManterClienteUI import ManterClienteUI
 from templates.ManterServicoUI import ManterServicoUI
 from templates.ManterHorarioUI import ManterHorarioUI
