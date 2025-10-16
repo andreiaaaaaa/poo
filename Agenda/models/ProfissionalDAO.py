@@ -1,5 +1,5 @@
 import json
-from models.Profissional import Profissional
+from models.profissional import Profissional
 
 class ProfissionalDAO:
     __objetos = []
