@@ -4,9 +4,9 @@ from models.clienteDAO import ClienteDAO
 from models.servico import Servico
 from models.servicoDAO import ServicoDAO
 from models.horario import Horario
-from models.horarioDAO import HorarioDAO
-from models.profissional import Profissional
-from models.profissionalDAO import ProfissionalDAO
+from models.HorarioDAO import HorarioDAO
+from models.Profissional import Profissional
+from models.ProfissionalDAO import ProfissionalDAO
 
 class View:
 
