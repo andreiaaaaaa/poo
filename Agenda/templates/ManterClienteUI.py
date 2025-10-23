@@ -1,8 +1,8 @@
 import streamlit as st
-import ManterClienteUI
 import pandas as pd
 import time 
 from views import View
+
 class ManterClienteUI:
     def main():
         st.header("Cadastro de Clientes")
