@@ -1,4 +1,4 @@
-import streamlit as st
+import streamlit as st # type: ignore
 from templates.ManterClienteUI import ManterClienteUI
 from templates.ManterServicoUI import ManterServicoUI
 from templates.ManterHorarioUI import ManterHorarioUI
@@ -17,3 +17,4 @@ class IndexUI:
         if op == "Cadastro de Serviços": ManterServicoUI.main()
         if op == "Cadastro de Profissionais": ManterProfissionalUI.main()
         if op == "Cadastro de Horários": ManterHorarioUI.main()
+IndexUI.menu_admin()
