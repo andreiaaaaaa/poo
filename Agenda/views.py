@@ -103,5 +103,5 @@ class View:
         ProfissionalDAO.atualizar(p)
 
     def profissional_excluir(id):
-        p = Profissional(id, "", "")
+        p = Profissional(id, "", "", "", "", "")
         ProfissionalDAO.excluir(p)
