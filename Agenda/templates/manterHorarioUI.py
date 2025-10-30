@@ -1,4 +1,4 @@
-import streamlit as st # type: ignore
+import streamlit as st
 import pandas as pd
 from datetime import datetime
 import time
@@ -42,19 +42,26 @@ class ManterHorarioUI:
     def inserir():
         clientes = View.cliente_listar()
         servicos = View.servico_listar()
-        profissional = View.profissional_listar()   
+        profissionais = View.profissional_listar()   
 
         data = st.text_input("Informe a data e horário do serviço", datetime.now().strftime("%d/%m/%Y %H:%M"))
         confirmado = st.checkbox("Confirmado")
         cliente = st.selectbox("Informe o cliente", clientes, index=None)
         servico = st.selectbox("Informe o serviço", servicos, index=None)
-        profissional = st.selectbox("Informe o profissional", profissional, index=None)  
+        profissional = st.selectbox("Informe o profissional", profissionais, index=None)  
 
         if st.button("Inserir"):
             id_cliente = cliente.get_id() if cliente else None
             id_servico = servico.get_id() if servico else None
-            id_profissional = profissional.get_id() if profissional else None  
-            View.horario_inserir(datetime.strptime(data, "%d/%m/%Y %H:%M"), confirmado, id_cliente, id_servico)
+            id_profissional = profissional.get_id() if profissional else None
+
+            View.horario_inserir(
+            datetime.strptime(data, "%d/%m/%Y %H:%M"),
+            confirmado,
+            id_cliente,
+            id_servico,
+            id_profissional 
+            )
             st.success("Horário inserido com sucesso")
             time.sleep(2)
             st.rerun()
@@ -72,7 +79,7 @@ class ManterHorarioUI:
             confirmado = st.checkbox("Nova confirmação", op.get_confirmado())
             id_cliente = None if op.get_id_cliente() in [0, None] else op.get_id_cliente()
             id_servico = None if op.get_id_servico() in [0, None] else op.get_id_servico()
-            id_profissional = op.get_id_profissional()  
+            id_profissional = None if op.get_id_servico() in [0, None] else op.get_id_profissional()  
 
             cliente = st.selectbox("Informe o novo cliente", clientes, next((i for i, c in enumerate(clientes) if c.get_id() == id_cliente), None))
             servico = st.selectbox("Informe o novo serviço", servicos, next((i for i, s in enumerate(servicos) if s.get_id() == id_servico), None))

@@ -28,13 +28,14 @@ class Horario:
 
     def to_json(self):
         return {
-            "id": self.__id,
-            "data": self.__data.strftime("%d/%m/%Y %H:%M"),
-            "confirmado": self.__confirmado,
-            "id_cliente": self.__id_cliente,
-            "id_servico": self.__id_servico,
-            "id_profissional": self.__id_profissional 
-        }
+        "id": self.__id,
+        "data": self.__data.strftime("%d/%m/%Y %H:%M"),
+        "confirmado": self.__confirmado,
+        "id_cliente": self.__id_cliente,
+        "id_servico": self.__id_servico,
+        "id_profissional": self.__id_profissional
+    }
+
 
     @staticmethod
     def from_json(dic):

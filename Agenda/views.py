@@ -1,12 +1,12 @@
-from models import profissional
 from models.cliente import Cliente
 from models.clienteDAO import ClienteDAO
 from models.servico import Servico
 from models.servicoDAO import ServicoDAO
+from models.profissional import Profissional
+from models.profissionalDAO import ProfissionalDAO
 from models.horario import Horario
-from models.HorarioDAO import HorarioDAO
-from models.Profissional import Profissional
-from models.ProfissionalDAO import ProfissionalDAO
+from models.horarioDAO import HorarioDAO
+
 
 class View:
 
@@ -46,13 +46,12 @@ class View:
         servico = Servico(id, "", 0.0)
         ServicoDAO.excluir(servico)
 
-    def horario_inserir(data, confirmado, id_cliente, id_servico):
+    def horario_inserir(data, confirmado, id_cliente, id_servico, id_profissional):
         c = Horario(0, data)
         c.set_confirmado(confirmado)
         c.set_id_cliente(id_cliente)
         c.set_id_servico(id_servico)
-        c.set_id_profissional(id_profissional=profissional)
-
+        c.set_id_profissional(id_profissional) 
         HorarioDAO.inserir(c)
 
     def horario_listar():
@@ -63,7 +62,7 @@ class View:
         c.set_confirmado(confirmado)
         c.set_id_cliente(id_cliente)
         c.set_id_servico(id_servico)
-        c.set_id_profissional(id_profissional=profissional)   
+        c.set_id_profissional(id_profissional=Profissional)  
 
         HorarioDAO.atualizar(c)
 
