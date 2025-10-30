@@ -1,5 +1,5 @@
 import streamlit as st
-import pandas as pd
+import time
 from views import View
 
 class ManterProfissionalUI:
@@ -16,15 +16,22 @@ class ManterProfissionalUI:
         if len(lista) == 0:
             st.write("Nenhum profissional cadastrado")
         else:
-            dic = [{"id": p.get_id(), "nome": p.get_nome(), "especialidade": p.get_especialidade()} for p in lista]
-            st.dataframe(pd.DataFrame(dic))
+            for p in lista:
+                st.write(p)
 
     def inserir():
         nome = st.text_input("Nome")
+        email = st.text_input("E-mail")
+        fone = st.text_input("Fone")
+        senha = st.text_input("Senha", type="password")
         especialidade = st.text_input("Especialidade")
+
+
         if st.button("Inserir"):
-            View.profissional_inserir(nome, especialidade)
+            View.profissional_inserir(nome, email, fone, senha, especialidade)
             st.success("Profissional inserido com sucesso")
+            time.sleep(2)
+            st.rerun()
 
     def atualizar():
         lista = View.profissional_listar()
