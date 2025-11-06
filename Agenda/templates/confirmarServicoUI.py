@@ -6,22 +6,22 @@ class ConfirmarServicoUI:
     def main():
         st.header("Confirmar Serviços Agendados")
 
-        horarios = View.horario_listar()
-        lista = [h for h in horarios if h.get_id_profissional() == st.session_state["usuario_id"] and not h.get_confirmado() and h.get_id_cliente()]
+        if "usuario_id" not in st.session_state or st.session_state.get("usuario_tipo") != "profissional":
+            st.info("Acesse como profissional para confirmar serviços.")
+            return
 
-        if len(lista) == 0:
-            st.write("Nenhum serviço pendente de confirmação.")
-        else:
-            horario = st.selectbox("Selecione um horário", lista)
-            if st.button("Confirmar Serviço"):
-                View.horario_atualizar(
-                    horario.get_id(),
-                    horario.get_data(),
-                    True,
-                    horario.get_id_cliente(),
-                    horario.get_id_servico(),
-                    horario.get_id_profissional()
-                )
-                st.success("Serviço confirmado com sucesso!")
-                time.sleep(2)
-                st.rerun()
+        prof_id = st.session_state["usuario_id"]
+        horarios = View.horario_listar()
+
+        pendentes = [h for h in horarios if h.get_id_profissional() == prof_id and not h.get_confirmado() and h.get_id_cliente()]
+
+        if len(pendentes) == 0:
+            st.info("Nenhum serviço pendente de confirmação.")
+            return
+
+        opc = st.selectbox("Horários pendentes", pendentes, format_func=lambda x: x.get_data().strftime("%d/%m/%Y %H:%M"))
+        if st.button("Confirmar Serviço"):
+            View.horario_atualizar(opc.get_id(), opc.get_data(), True, opc.get_id_cliente(), opc.get_id_servico(), opc.get_id_profissional())
+            st.success("Serviço confirmado.")
+            time.sleep(1)
+            st.rerun()
