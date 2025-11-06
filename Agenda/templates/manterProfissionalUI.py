@@ -1,6 +1,7 @@
 import streamlit as st
 import time
 from views import View
+import pandas as pd
 
 class ManterProfissionalUI:
     def main():
@@ -12,12 +13,15 @@ class ManterProfissionalUI:
         with tab4: ManterProfissionalUI.excluir()
 
     def listar():
-        lista = View.profissional_listar()
-        if len(lista) == 0:
-            st.write("Nenhum profissional cadastrado")
+        clientes = View.profissional_listar()
+        if len(clientes) == 0:
+            st.write("Nenhum Profissional cadastrado")
         else:
-            for p in lista:
-                st.write(p)
+            list_dic = []
+            for obj in clientes:
+                list_dic.append(obj.to_json())
+            df = pd.DataFrame(list_dic)
+            st.dataframe(df)
 
     def inserir():
         nome = st.text_input("Nome")

@@ -1,16 +1,17 @@
 from datetime import datetime
 
 class Horario:
-    def __init__(self, id, data):
-        self.set_id(id)
-        self.set_data(data)
-        self.set_confirmado(False)
-        self.set_id_cliente(0)
-        self.set_id_servico(0)
-        self.set_id_profissional(0)
+    def __init__(self, id, data, confirmado, id_cliente, id_servico, id_profissional):
+        self.__id = id
+        self.__data = data
+        self.__confirmado = confirmado
+        self.__id_cliente = id_cliente
+        self.__id_servico = id_servico
+        self.__id_profissional = id_profissional
 
     def __str__(self):
-        return f"{self.__id} - {self.__data.strftime('%d/%m/%Y %H:%M')} - {self.__confirmado}"
+        return f"{self.__id} - {self.__data} - {self.__confirmado} - {self.__id_cliente} - {self.__id_servico} - {self.__id_profissional}"
+
 
     def get_id(self): return self.__id
     def get_data(self): return self.__data
@@ -28,20 +29,16 @@ class Horario:
 
     def to_json(self):
         return {
-        "id": self.__id,
-        "data": self.__data.strftime("%d/%m/%Y %H:%M"),
-        "confirmado": self.__confirmado,
-        "id_cliente": self.__id_cliente,
-        "id_servico": self.__id_servico,
-        "id_profissional": self.__id_profissional
-    }
-
+            "id": self.__id,
+            "data": self.__data.strftime("%Y-%m-%d %H:%M:%S"),
+            "confirmado": self.__confirmado,
+            "id_cliente": self.__id_cliente,
+            "id_servico": self.__id_servico,
+            "id_profissional": self.__id_profissional
+        }
 
     @staticmethod
     def from_json(dic):
-        horario = Horario(dic["id"], datetime.strptime(dic["data"], "%d/%m/%Y %H:%M"))
-        horario.set_confirmado(dic["confirmado"])
-        horario.set_id_cliente(dic["id_cliente"])
-        horario.set_id_servico(dic["id_servico"])
-        horario.set_id_profissional(dic.get("id_profissional", 0)) 
-        return horario
+        data = datetime.strptime(dic["data"], "%Y-%m-%d %H:%M:%S")
+        return Horario(dic["id"], data, dic["confirmado"],
+                       dic["id_cliente"], dic["id_servico"], dic["id_profissional"])

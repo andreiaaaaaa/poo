@@ -22,7 +22,7 @@ class Profissional:
     def set_especialidade(self, especialidade): self.__especialidade = especialidade
 
     def __str__(self):
-        return f"{self.__id} - {self.__nome} ({self.__email} - {self.__fone} - {self.__senha} - {self.__especialidade})"
+        return f"{self.__id} - {self.__nome} ({self.__email} - ({self.__fone}) - ({self.__senha}) - ({self.__especialidade}))"
 
     def to_json(self):
         return {

@@ -18,4 +18,3 @@ class PerfilProfissionalUI:
             st.success("Dados atualizados!")
             time.sleep(2)
             st.rerun()
-
