@@ -3,22 +3,31 @@ from views import View
 
 class VisualizarMinhaAgendaUI:
     def main():
-        st.header("Minha Agenda de Atendimentos")
+        st.header("Minha Agenda de Atendimento")
 
-        horarios = View.horario_listar()
-        achou = False
+        if "usuario_id" not in st.session_state or st.session_state.get("usuario_tipo") != "profissional":
+            st.info("Acesse como profissional para ver sua agenda.")
+            return
 
-        for h in horarios:
-            if h.get_id_profissional() == st.session_state["usuario_id"]:
-                achou = True
-                cliente = View.cliente_listar_id(h.get_id_cliente()) if h.get_id_cliente() else None
-                servico = View.servico_listar_id(h.get_id_servico()) if h.get_id_servico() else None
+        prof_id = st.session_state["usuario_id"]
+        horarios = View.horario_listar()  
+        meus = [h for h in horarios if h.get_id_profissional() == prof_id]
 
-                st.write(f"📅 {h.get_data().strftime('%d/%m/%Y %H:%M')}")
-                st.write(f"👤 Cliente: {cliente.get_nome() if cliente else 'Disponível'}")
-                st.write(f"💈 Serviço: {servico.get_descricao() if servico else '-'}")
-                st.write(f"✅ Confirmado: {'Sim' if h.get_confirmado() else 'Não'}")
-                st.markdown("---")
+        if len(meus) == 0:
+            st.info("Nenhum horário cadastrado para você.")
+            return
 
-        if not achou:
-            st.info("Você ainda não tem horários cadastrados.")
+        for h in meus:
+            data_str = h.get_data().strftime("%d/%m/%Y %H:%M")
+            cliente = None
+            servico = None
+            if h.get_id_cliente():
+                cliente = View.cliente_listar_id(h.get_id_cliente())
+            if h.get_id_servico():
+                servico = View.servico_listar_id(h.get_id_servico())
+
+            st.markdown(f"**{data_str}**")
+            st.write("Cliente:", cliente.get_nome() if cliente else "Disponível")
+            st.write("Serviço:", servico.get_descricao() if servico else "-")
+            st.write("Confirmado:", "Sim" if h.get_confirmado() else "Não")
+            st.markdown("---")
