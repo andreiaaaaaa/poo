@@ -2,26 +2,36 @@ import streamlit as st
 from views import View
 import time
 
-class ConfirmarServicoUI:
+class AlterarSenhaUI:
     def main():
-        st.header("Confirmar Serviços Agendados")
+        st.header("Alterar senha (Admin)")
 
-        if "usuario_id" not in st.session_state or st.session_state.get("usuario_tipo") != "profissional":
-            st.info("Acesse como profissional para confirmar serviços.")
+        if "usuario_id" not in st.session_state or st.session_state.get("usuario_nome") != "admin":
+            st.info("Somente o Admin pode alterar sua senha aqui.")
             return
 
-        prof_id = st.session_state["usuario_id"]
-        horarios = View.horario_listar()
+        nova = st.text_input("Nova senha", type="password")
+        confirma = st.text_input("Confirmar nova senha", type="password")
 
-        pendentes = [h for h in horarios if h.get_id_profissional() == prof_id and not h.get_confirmado() and h.get_id_cliente()]
+        if st.button("Alterar"):
+            if nova.strip() == "":
+                st.error("Senha não pode ser vazia.")
+                return
+            if nova != confirma:
+                st.error("Senhas não conferem.")
+                return
 
-        if len(pendentes) == 0:
-            st.info("Nenhum serviço pendente de confirmação.")
-            return
+            admin = None
+            for c in View.cliente_listar():
+                if c.get_email().lower() == "admin":
+                    admin = c
+                    break
 
-        opc = st.selectbox("Horários pendentes", pendentes, format_func=lambda x: x.get_data().strftime("%d/%m/%Y %H:%M"))
-        if st.button("Confirmar Serviço"):
-            View.horario_atualizar(opc.get_id(), opc.get_data(), True, opc.get_id_cliente(), opc.get_id_servico(), opc.get_id_profissional())
-            st.success("Serviço confirmado.")
+            if not admin:
+                st.error("Admin não encontrado.")
+                return
+
+            View.cliente_atualizar(admin.get_id(), admin.get_nome(), admin.get_email(), admin.get_fone(), nova)
+            st.success("Senha do admin alterada com sucesso.")
             time.sleep(1)
             st.rerun()

@@ -7,6 +7,11 @@ from templates.manterServicoUI import ManterServicoUI
 from templates.manterHorarioUI import ManterHorarioUI
 from templates.manterProfissionalUI import ManterProfissionalUI
 from templates.agendarServicoUI import AgendarServicoUI
+from templates.abrirMinhaAgendaUI import AbrirMinhaAgendaUI
+from templates.visualizarMinhaAgendaUI import VisualizarMinhaAgendaUI
+from templates.visualizarMeusServicosUI import VisualizarMeusServicosUI
+from templates.confirmarServicoUI import ConfirmarServicoUI
+from templates.alterarSenhaUI import AlterarSenhaUI
 from views import View
 
 
@@ -37,6 +42,16 @@ class IndexUI:
         if op == "Cadastro de Serviços": ManterServicoUI.main()
         if op == "Cadastro de Profissionais": ManterProfissionalUI.main()
         if op == "Cadastro de Horários": ManterHorarioUI.main()
+        if op == "Abrir Minha Agenda": AbrirMinhaAgendaUI.main()
+        if op == "Visualizar Minha Agenda": VisualizarMinhaAgendaUI.main()
+        if op == "Confirmar Serviço": ConfirmarServicoUI.main()
+        if op == "Agendar Serviço": AgendarServicoUI.main()  
+        if op == "Meus Serviços": VisualizarMeusServicosUI.main()
+        if op == "Alterar Senha (Admin)": AlterarSenhaUI.main()
+
+
+
+
 
     def sair_do_sistema():
         if st.sidebar.button("Sair"):
